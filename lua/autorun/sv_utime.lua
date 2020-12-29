@@ -16,6 +16,12 @@ function PLAYER:SetUTimeStart(num)
 end
 
 local function onJoin(ply)
+	if ply:IsBot() then
+		ply:SetUTime(0)
+		ply:SetUTimeStart(CurTime())
+		return
+	end
+	
 	local uid = ply:SteamID64()
 	local row = sql.QueryRow("SELECT totaltime, lastvisit FROM utime WHERE player = ".. uid ..";")
 	local time = 0 
